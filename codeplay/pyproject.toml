@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "aperture-etl-transforms"
+version = "0.1.0"
+description = "ETL Transforms"
+authors = ["CH"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyyaml = "*"
+pytest = "*"
+flake8 = "*"
+isort = "*"
+black = "*"
+pandas = "*"
+pydantic = "*"
+sqlalchemy = "*"
+pyscopg2 = "*"
+psycopg2-binary = "*"
+alembic ="*"
+requests = "^2.31.0"
+pyodbc = "^5.0.1"
+
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+pytest-mock = "*"
+pytest-cov = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest]
+testpaths = ["tests"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]

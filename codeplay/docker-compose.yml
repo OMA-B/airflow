@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest	
+    environment:
+      - SA_PASSWORD=Secret1234
+      - ACCEPT_EULA=Y
+    ports:
+      - 1433:1433
+    volumes:
+      - 'sqldata:/var/opt/mssql'
+    restart: unless-stopped
+
+
+  init:
+    build:
+      context: .
+    depends_on:
+      - db
+    command: /bin/bash -c "sleep 10 && poetry run python tests/db_init.py"
+
+  app:
+    build:
+      context: .
+    depends_on:
+      - db
+    tty: true
+    volumes:
+      - .:/workspace
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+
+volumes:
+  sqldata:
